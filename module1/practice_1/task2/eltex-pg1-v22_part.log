@@ -1,0 +1,114 @@
+eltex-pg1-v22@eltex-2026-spring:~$ ls
+ls           lsblk        lscpu        lsinitramfs  lsirq        lslogins     lsmod        lsof         lsusb
+lsattr       lsb_release  lsfd         lsipc        lslocks      lsmem        lsns         lspci
+eltex-pg1-v22@eltex-2026-spring:~$ echo $HIST
+$HISTCMD       $HISTCONTROL   $HISTFILE      $HISTFILESIZE  $HISTSIZE
+eltex-pg1-v22@eltex-2026-spring:~$ echo $HISTFILESIZE
+2000
+eltex-pg1-v22@eltex-2026-spring:~$ ls -d ~/.*
+/home/eltex-pg1-v22/.bash_history  /home/eltex-pg1-v22/.bashrc  /home/eltex-pg1-v22/.lesshst  /home/eltex-pg1-v22/.viminfo
+/home/eltex-pg1-v22/.bash_logout   /home/eltex-pg1-v22/.config  /home/eltex-pg1-v22/.profile
+eltex-pg1-v22@eltex-2026-spring:~$ export HISTTIMEFORMAT='%F %H:%M '
+eltex-pg1-v22@eltex-2026-spring:~$ date
+Thu Mar 12 01:27:33 PM +07 2026
+eltex-pg1-v22@eltex-2026-spring:~$ history | tail
+  218  2026-03-12 13:24 TEMP=dumb script -q -f "$USER_part.log"
+  219  2026-03-10 14:04 bash --norc
+  220  2026-03-10 14:01 bash
+  221  2026-03-12 13:24 exit
+  222  2026-03-12 13:25 echo $HIST
+  223  2026-03-12 13:26 echo $HISTFILESIZE
+  224  2026-03-12 13:26 ls -d ~/.*
+  225  2026-03-12 13:27 export HISTTIMEFORMAT='%F %H:%M '
+  226  2026-03-12 13:27 date
+  227  2026-03-12 13:28 history | tail
+eltex-pg1-v22@eltex-2026-spring:~$ tail ~/.bash_history
+ls -l "${USER}_part.log"
+less "${USER}_part.log"
+screen ls
+screen -ls
+TEMP=dumb script -q -f "$USER_part.log"
+#1773126255
+bash --norc
+#1773126105
+bash
+exit
+eltex-pg1-v22@eltex-2026-spring:~$ PROMPT_COMMAND='history -a'
+eltex-pg1-v22@eltex-2026-spring:~$ history | tail
+  221  2026-03-12 13:24 exit
+  222  2026-03-12 13:25 echo $HIST
+  223  2026-03-12 13:26 echo $HISTFILESIZE
+  224  2026-03-12 13:26 ls -d ~/.*
+  225  2026-03-12 13:27 export HISTTIMEFORMAT='%F %H:%M '
+  226  2026-03-12 13:27 date
+  227  2026-03-12 13:28 history | tail
+  228  2026-03-12 13:28 tail ~/.bash_history
+  229  2026-03-12 13:29 PROMPT_COMMAND='history -a'
+  230  2026-03-12 13:29 history | tail
+eltex-pg1-v22@eltex-2026-spring:~$ tail ~/.bash_history
+#1773296853
+date
+#1773296902
+history | tail
+#1773296930
+tail ~/.bash_history
+#1773296975
+PROMPT_COMMAND='history -a'
+#1773296980
+history | tail
+eltex-pg1-v22@eltex-2026-spring:~$ DATE=$(date +%F)
+eltex-pg1-v22@eltex-2026-spring:~$ echo $DATE
+2026-03-12
+eltex-pg1-v22@eltex-2026-spring:~$ TIME=$(date +%T)
+eltex-pg1-v22@eltex-2026-spring:~$ echo $TIME
+13:31:56
+eltex-pg1-v22@eltex-2026-spring:~$ DATE_TIME="$DATE $TIME"
+eltex-pg1-v22@eltex-2026-spring:~$ echo $DATE_TIME
+2026-03-12 13:31:56
+eltex-pg1-v22@eltex-2026-spring:~$ ls /bin/*[0-9]* /sbin/*[0-9]*
+/bin/addr2line                  /bin/grub-menulst2cfg           /bin/py3clean                    /bin/x86_64-linux-gnu-c++filt         /bin/x86_64-linux-gnu-gp-display-html  /sbin/e2label
+/bin/b2sum                      /bin/grub-mkpasswd-pbkdf2       /bin/py3compile                  /bin/x86_64-linux-gnu-cpp             /bin/x86_64-linux-gnu-gp-display-src   /sbin/e2mmpstatus
+/bin/base32                     /bin/grub-syslinux2cfg          /bin/py3versions                 /bin/x86_64-linux-gnu-cpp-12          /bin/x86_64-linux-gnu-gp-display-text  /sbin/e2scrub
+/bin/base64                     /bin/h2ph                       /bin/pydoc3                      /bin/x86_64-linux-gnu-dwp             /bin/x86_64-linux-gnu-gprof            /sbin/e2scrub_all
+/bin/bunzip2                    /bin/h2xs                       /bin/pydoc3.11                   /bin/x86_64-linux-gnu-elfedit         /bin/x86_64-linux-gnu-gprofng          /sbin/e2undo
+/bin/bzip2                      /bin/i386                       /bin/pygettext3                  /bin/x86_64-linux-gnu-gcc             /bin/x86_64-linux-gnu-ld               /sbin/e4crypt
+/bin/bzip2recover               /bin/linux32                    /bin/pygettext3.11               /bin/x86_64-linux-gnu-gcc-12          /bin/x86_64-linux-gnu-ld.bfd           /sbin/e4defrag
+/bin/c89                        /bin/linux64                    /bin/python3                     /bin/x86_64-linux-gnu-gcc-ar          /bin/x86_64-linux-gnu-ld.gold          /sbin/fsck.ext2
+/bin/c89-gcc                    /bin/lto-dump-12                /bin/python3.11                  /bin/x86_64-linux-gnu-gcc-ar-12       /bin/x86_64-linux-gnu-lto-dump         /sbin/fsck.ext3
+/bin/c99                        /bin/md5sum                     /bin/sha1sum                     /bin/x86_64-linux-gnu-gcc-nm          /bin/x86_64-linux-gnu-lto-dump-12      /sbin/fsck.ext4
+/bin/c99-gcc                    /bin/md5sum.textutils           /bin/sha224sum                   /bin/x86_64-linux-gnu-gcc-nm-12       /bin/x86_64-linux-gnu-nm               /sbin/killall5
+/bin/cpan5.36-x86_64-linux-gnu  /bin/pdb3                       /bin/sha256sum                   /bin/x86_64-linux-gnu-gcc-ranlib      /bin/x86_64-linux-gnu-objcopy          /sbin/mke2fs
+/bin/cpp-12                     /bin/pdb3.11                    /bin/sha384sum                   /bin/x86_64-linux-gnu-gcc-ranlib-12   /bin/x86_64-linux-gnu-objdump          /sbin/mkfs.ext2
+/bin/diff3                      /bin/perl5.36.0                 /bin/sha512sum                   /bin/x86_64-linux-gnu-gcov            /bin/x86_64-linux-gnu-ranlib           /sbin/mkfs.ext3
+/bin/enc2xs                     /bin/perl5.36-x86_64-linux-gnu  /bin/ssh-argv0                   /bin/x86_64-linux-gnu-gcov-12         /bin/x86_64-linux-gnu-readelf          /sbin/mkfs.ext4
+/bin/gcc-12                     /bin/ping4                      /bin/systemd-id128               /bin/x86_64-linux-gnu-gcov-dump       /bin/x86_64-linux-gnu-size             /sbin/resize2fs
+/bin/gcc-ar-12                  /bin/ping6                      /bin/traceroute6                 /bin/x86_64-linux-gnu-gcov-dump-12    /bin/x86_64-linux-gnu-strings          /sbin/tune2fs
+/bin/gcc-nm-12                  /bin/pl2pm                      /bin/traceroute6.db              /bin/x86_64-linux-gnu-gcov-tool       /bin/x86_64-linux-gnu-strip            /sbin/update-grub2
+/bin/gcc-ranlib-12              /bin/pod2html                   /bin/x86_64                      /bin/x86_64-linux-gnu-gcov-tool-12    /sbin/dumpe2fs
+/bin/gcov-12                    /bin/pod2man                    /bin/x86_64-linux-gnu-addr2line  /bin/x86_64-linux-gnu-gold            /sbin/e2freefrag
+/bin/gcov-dump-12               /bin/pod2text                   /bin/x86_64-linux-gnu-ar         /bin/x86_64-linux-gnu-gp-archive      /sbin/e2fsck
+/bin/gcov-tool-12               /bin/pod2usage                  /bin/x86_64-linux-gnu-as         /bin/x86_64-linux-gnu-gp-collect-app  /sbin/e2image
+eltex-pg1-v22@eltex-2026-spring:~$ PS1='$USER@$(hostname)-$(date +%H:%M)> '
+eltex-pg1-v22@eltex-2026-spring-13:35> export PS1
+eltex-pg1-v22@eltex-2026-spring-13:36> for i in {01..12}; do mkdir -p ~/"$(date +%Y)-$i"; done
+eltex-pg1-v22@eltex-2026-spring-13:39> ls -l
+total 100
+drwxr-xr-x 2 eltex-pg1-v22 eltex-pg1-v22  4096 Mar 12 13:39 2026-01
+drwxr-xr-x 2 eltex-pg1-v22 eltex-pg1-v22  4096 Mar 12 13:39 2026-02
+drwxr-xr-x 2 eltex-pg1-v22 eltex-pg1-v22  4096 Mar 12 13:39 2026-03
+drwxr-xr-x 2 eltex-pg1-v22 eltex-pg1-v22  4096 Mar 12 13:39 2026-04
+drwxr-xr-x 2 eltex-pg1-v22 eltex-pg1-v22  4096 Mar 12 13:39 2026-05
+drwxr-xr-x 2 eltex-pg1-v22 eltex-pg1-v22  4096 Mar 12 13:39 2026-06
+drwxr-xr-x 2 eltex-pg1-v22 eltex-pg1-v22  4096 Mar 12 13:39 2026-07
+drwxr-xr-x 2 eltex-pg1-v22 eltex-pg1-v22  4096 Mar 12 13:39 2026-08
+drwxr-xr-x 2 eltex-pg1-v22 eltex-pg1-v22  4096 Mar 12 13:39 2026-09
+drwxr-xr-x 2 eltex-pg1-v22 eltex-pg1-v22  4096 Mar 12 13:39 2026-10
+drwxr-xr-x 2 eltex-pg1-v22 eltex-pg1-v22  4096 Mar 12 13:39 2026-11
+drwxr-xr-x 2 eltex-pg1-v22 eltex-pg1-v22  4096 Mar 12 13:39 2026-12
+drwxr-xr-x 2 eltex-pg1-v22 eltex-pg1-v22  4096 Mar 12 16:38 D1
+-rw-r--r-- 1 eltex-pg1-v22 eltex-pg1-v22   763 Mar 12 17:28 eltex-pg1-v22_part3_file_size.log
+-rw-r--r-- 1 eltex-pg1-v22 eltex-pg1-v22   708 Mar 12 17:00 eltex-pg1-v22_part3_gt50M.log
+-rw-r--r-- 1 eltex-pg1-v22 eltex-pg1-v22   426 Mar 12 17:38 eltex-pg1-v22_part3.log
+-rw-r--r-- 1 eltex-pg1-v22 eltex-pg1-v22  7904 Mar 12 13:40 eltex-pg1-v22_part.log
+-rw-r--r-- 1 eltex-pg1-v22 eltex-pg1-v22   138 Mar  9 17:37 report_part1.txt
+-rw-r--r-- 1 eltex-pg1-v22 eltex-pg1-v22 20480 Mar 10 14:14 Unsuccessful_eltex-pg1-v22_part.log
