@@ -225,7 +225,7 @@ Changes to be committed:
         new file:   module1/practice_2/task3/.practice2_eltex-pg1-v22_part3.log.swp
         new file:   module1/practice_2/task3/practice2_eltex-pg1-v22_part3.log
 
-root@eltex-practice2-pg1-v22:~/eltex-spring-practice# git commit -m "Добавил отчеты по 2 практике"
+root@eltex-practice2-pg1-v22:~/eltex-spring-practice# git commit -m "Добавил отчеты по 2 практике "
 [main 9425373] Добавил отчеты по 2 практике
  4 files changed, 869 insertions(+)
  create mode 100644 module1/practice_2/task1/practice2_eltex-pg1-v22_part1.log
