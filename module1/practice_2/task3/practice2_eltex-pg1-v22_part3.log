@@ -1,0 +1,218 @@
+root@eltex-practice2-pg1-v22:~# git config --global user.name lairongs
+root@eltex-practice2-pg1-v22:~# git config --global user.email "wladimir.chernoschekov@gmail.com"
+root@eltex-practice2-pg1-v22:~# git config --global init.defaultBranch main
+
+root@eltex-practice2-pg1-v22:~# git config --global --list
+root@eltex-practice2-pg1-v22:~# git config --global --list
+user.name=lairongs
+user.email=wladimir.chernoschekov@gmail.com
+init.defaultbranch=main
+
+root@eltex-practice2-pg1-v22:~# ssh-keygen -t ed25519 -f ~/.ssh/lairongs
+Generating public/private ed25519 key pair.
+Enter passphrase (empty for no passphrase):
+Enter same passphrase again:
+Your identification has been saved in /root/.ssh/lairongs
+Your public key has been saved in /root/.ssh/lairongs.pub
+The key fingerprint is:
+SHA256:elUtcAEkIXnq0vt8nmwcJASZ1N+kAu71c2ihdiyWP4Q root@eltex-practice2-pg1-v22
+The key's randomart image is:
++--[ED25519 256]--+
+|     .+*oo+.o.   |
+|      =.+. o..   |
+|     . = . +o .  |
+|      o + =...   |
+|     + .SX.o     |
+|    . +.E.X .    |
+|     ..+.B +     |
+|      .o .*.     |
+|       .o++.     |
++----[SHA256]-----+
+
+root@eltex-practice2-pg1-v22:~# gh auth login
+? What account do you want to log into? GitHub.com
+? What is your preferred protocol for Git operations on this host? SSH
+? Upload your SSH public key to your GitHub account? /root/.ssh/lairongs.pub
+? Title for your SSH key: eltex-practice2-pg1-v22
+? How would you like to authenticate GitHub CLI? Login with a web browser
+Press Enter to open github.com in your browser...
+! Failed opening a web browser at https://github.com/login/device
+  exec: "xdg-open,x-www-browser,www-browser,wslview": executable file not found in $PATH
+  Please try entering the URL in your browser manually
+✓ Authentication complete.
+- gh config set -h github.com git_protocol ssh
+✓ Configured git protocol
+! Authentication credentials saved in plain text
+✓ Uploaded the SSH key to your GitHub account: /root/.ssh/lairongs.pub
+✓ Logged in as Lairongs
+
+root@eltex-practice2-pg1-v22:~# gh auth status
+github.com
+  ✓ Logged in to github.com account Lairongs (/root/.config/gh/hosts.yml)
+  - Active account: true
+  - Git operations protocol: ssh
+  - Token: gho_************************************
+  - Token scopes: 'admin:public_key', 'gist', 'read:org', 'repo'
+
+root@eltex-practice2-pg1-v22:~# gh repo create --public eltex-spring-practice
+✓ Created repository Lairongs/eltex-spring-practice on GitHub
+  https://github.com/Lairongs/eltex-spring-practice
+
+root@eltex-practice2-pg1-v22:~# mkdir ~/eltex-spring-practice && cd ~/eltex-spring-practice
+root@eltex-practice2-pg1-v22:~/eltex-spring-practice# echo "# Данная ветка служит местом сохранения работ по практикам" >> README.md
+root@eltex-practice2-pg1-v22:~/eltex-spring-practice# git init
+Initialized empty Git repository in /root/eltex-spring-practice/.git/
+root@eltex-practice2-pg1-v22:~/eltex-spring-practice# git commit -m "first commit"
+[main (root-commit) 59fcbc0] first commit
+ 1 file changed, 1 insertion(+)
+ create mode 100644 README.md
+root@eltex-practice2-pg1-v22:~/eltex-spring-practice# git branch -M main
+root@eltex-practice2-pg1-v22:~/eltex-spring-practice# git remote add origin https://github.com/lairongs/eltex-spring-practice.git
+root@eltex-practice2-pg1-v22:~/eltex-spring-practice# git status
+On branch main
+nothing to commit, working tree clean
+root@eltex-practice2-pg1-v22:~# git push -u origin main
+root@eltex-practice2-pg1-v22:~# cd /root/eltex-spring-practice/
+root@eltex-practice2-pg1-v22:~/eltex-spring-practice# mkdir -p module1
+root@eltex-practice2-pg1-v22:~/eltex-spring-practice/module1# mkdir -p practice_1
+root@eltex-practice2-pg1-v22:~/eltex-spring-practice/module1# mkdir -p practice_2
+root@eltex-practice2-pg1-v22:~/eltex-spring-practice/module1# mkdir -p practice_3
+root@eltex-practice2-pg1-v22:~/eltex-spring-practice/module1# cd practice_1
+root@eltex-practice2-pg1-v22:~/eltex-spring-practice/module1/practice_1# mkdir -p task1
+root@eltex-practice2-pg1-v22:~/eltex-spring-practice/module1/practice_1# mkdir -p task2
+root@eltex-practice2-pg1-v22:~/eltex-spring-practice/module1/practice_1# mkdir -p task3
+root@eltex-practice2-pg1-v22:~/eltex-spring-practice/module1# cd practice_2
+root@eltex-practice2-pg1-v22:~/eltex-spring-practice/module1/practice_2# mkdir -p task1
+root@eltex-practice2-pg1-v22:~/eltex-spring-practice/module1/practice_2# mkdir -p task2
+root@eltex-practice2-pg1-v22:~/eltex-spring-practice/module1/practice_2# mkdir -p task3
+root@eltex-practice2-pg1-v22:~/eltex-spring-practice/module1/practice_2# cd ..
+root@eltex-practice2-pg1-v22:~/eltex-spring-practice/module1# cd practice_3
+root@eltex-practice2-pg1-v22:~/eltex-spring-practice/module1/practice_3# mkdir -p task1
+root@eltex-practice2-pg1-v22:~/eltex-spring-practice/module1/practice_3# mkdir -p task2
+root@eltex-practice2-pg1-v22:~/eltex-spring-practice/module1/practice_3# mkdir -p task3
+root@eltex-practice2-pg1-v22:~/eltex-spring-practice/module1/practice_3# cd ..
+
+root@eltex-practice2-pg1-v22:~# mv 'отчет_1 практика_часть 1.pdf' /root/eltex-spring-practice/module1/practice_1/task1
+root@eltex-practice2-pg1-v22:~# mv filesFromServer/report_part1.txt /root/eltex-spring-practice/module1/practice_1/task1
+root@eltex-practice2-pg1-v22:~# mv filesFromServer/eltex-pg1-v22_part.log /root/eltex-spring-practice/module1/practice_1/task2
+root@eltex-practice2-pg1-v22:~# mv filesFromServer/eltex-pg1-v22_part3.log  /root/eltex-spring-practice/module1/practice_1/task3
+root@eltex-practice2-pg1-v22:~# mv filesFromServer/eltex-pg1-v22_part3_gt50M.log  /root/eltex-spring-practice/module1/practice_1/task3
+root@eltex-practice2-pg1-v22:~# mv filesFromServer/eltex-pg1-v22_part3_file_size.log  /root/eltex-spring-practice/module1/practice_1/task3
+
+root@eltex-practice2-pg1-v22:~/eltex-spring-practice# git add .
+root@eltex-practice2-pg1-v22:~/eltex-spring-practice# git status
+On branch main
+Your branch is up to date with 'origin/main'.
+
+Changes to be committed:
+  (use "git restore --staged <file>..." to unstage)
+        new file:   module1/practice_1/task1/report_part1.txt
+        new file:   "module1/practice_1/task1/\320\276\321\202\321\207\320\265\321\202_1 \320\277\321\200\320\260\320\272\321\202\320\270\320\272\320\260_\321\207\320\260\321\201\321\202\321\214 1.pdf"
+        new file:   module1/practice_1/task2/eltex-pg1-v22_part.log
+        new file:   module1/practice_1/task3/eltex-pg1-v22_part3.log
+        new file:   module1/practice_1/task3/eltex-pg1-v22_part3_file_size.log
+        new file:   module1/practice_1/task3/eltex-pg1-v22_part3_gt50M.log
+
+root@eltex-practice2-pg1-v22:~/eltex-spring-practice# git commit "Добавил отчеты по 1 практике"
+error: pathspec 'Добавил отчеты по 1 практике' did not match any file(s) known to git
+root@eltex-practice2-pg1-v22:~/eltex-spring-practice# git commit -m "Добавил отчеты по 1 практике"
+[main 766575b] Добавил отчеты по 1 практике
+ 6 files changed, 158 insertions(+)
+ create mode 100644 module1/practice_1/task1/report_part1.txt
+ create mode 100644 "module1/practice_1/task1/\320\276\321\202\321\207\320\265\321\202_1 \320\277\321\200\320\260\320\272\321\202\320\270\320\272\320\260_\321\207\320\260\321\201\321\202\321\214 1.pdf"
+ create mode 100644 module1/practice_1/task2/eltex-pg1-v22_part.log
+ create mode 100644 module1/practice_1/task3/eltex-pg1-v22_part3.log
+ create mode 100644 module1/practice_1/task3/eltex-pg1-v22_part3_file_size.log
+ create mode 100644 module1/practice_1/task3/eltex-pg1-v22_part3_gt50M.log
+root@eltex-practice2-pg1-v22:~/eltex-spring-practice# git push
+Enumerating objects: 14, done.
+Counting objects: 100% (14/14), done.
+Delta compression using up to 2 threads
+Compressing objects: 100% (12/12), done.
+Writing objects: 100% (13/13), 212.84 KiB | 30.41 MiB/s, done.
+Total 13 (delta 1), reused 0 (delta 0), pack-reused 0
+remote: Resolving deltas: 100% (1/1), done.
+remote: This repository moved. Please use the new location:
+remote:   https://github.com/Lairongs/eltex-spring-practice.git
+To https://github.com/lairongs/eltex-spring-practice.git
+   59fcbc0..766575b  main -> main
+
+root@eltex-practice2-pg1-v22:~/eltex-spring-practice# mkdir ~/eltex-spring-practice_clone && cd ~/eltex-spring-practice_clone
+root@eltex-practice2-pg1-v22:~/eltex-spring-practice_clone# git clone https://github.com/lairongs/eltex-spring-practice .
+Cloning into '.'...
+remote: Enumerating objects: 16, done.
+remote: Counting objects: 100% (16/16), done.
+remote: Compressing objects: 100% (13/13), done.
+remote: Total 16 (delta 1), reused 16 (delta 1), pack-reused 0 (from 0)
+Receiving objects: 100% (16/16), 213.10 KiB | 703.00 KiB/s, done.
+Resolving deltas: 100% (1/1), done.
+
+root@eltex-practice2-pg1-v22:~/eltex-spring-practice# echo "тест изменения основного каталога" >> README.md
+root@eltex-practice2-pg1-v22:~/eltex-spring-practice# git add .
+root@eltex-practice2-pg1-v22:~/eltex-spring-practice# git commit -m "Внес изменение согласно пункту 11"
+[main 4975600] Внес изменение согласно пункту 11
+ 1 file changed, 1 insertion(+)
+root@eltex-practice2-pg1-v22:~/eltex-spring-practice# git push
+Enumerating objects: 5, done.
+Counting objects: 100% (5/5), done.
+Delta compression using up to 2 threads
+Compressing objects: 100% (3/3), done.
+Writing objects: 100% (3/3), 443 bytes | 443.00 KiB/s, done.
+Total 3 (delta 0), reused 0 (delta 0), pack-reused 0
+remote: This repository moved. Please use the new location:
+remote:   https://github.com/Lairongs/eltex-spring-practice.git
+To https://github.com/lairongs/eltex-spring-practice.git
+   766575b..4975600  main -> main
+root@eltex-practice2-pg1-v22:~/eltex-spring-practice# cd ~/eltex-spring-practice_clone
+root@eltex-practice2-pg1-v22:~/eltex-spring-practice_clone# git fetch
+remote: Enumerating objects: 5, done.
+remote: Counting objects: 100% (5/5), done.
+remote: Compressing objects: 100% (3/3), done.
+remote: Total 3 (delta 0), reused 3 (delta 0), pack-reused 0 (from 0)
+Unpacking objects: 100% (3/3), 423 bytes | 423.00 KiB/s, done.
+From https://github.com/lairongs/eltex-spring-practice
+   766575b..4975600  main       -> origin/main
+root@eltex-practice2-pg1-v22:~/eltex-spring-practice_clone# git log origin/main
+commit 49756005e4cc8663e8affd5180daba5c3ff0d59b (origin/main, origin/HEAD)
+Author: lairongs <wladimir.chernoschekov@gmail.com>
+Date:   Thu Mar 19 05:02:38 2026 +0000
+
+    Внес изменение согласно пункту 11
+
+commit 766575b75f649ef3ad682ea763d0ebd661d090d6 (HEAD -> main)
+Author: lairongs <wladimir.chernoschekov@gmail.com>
+Date:   Thu Mar 19 04:42:25 2026 +0000
+
+    Добавил отчеты по 1 практике
+
+commit 59fcbc015f9af8a8142f9bf01343044aecffe9ba
+Author: lairongs <wladimir.chernoschekov@gmail.com>
+Date:   Wed Mar 18 09:51:34 2026 +0000
+
+    first commit
+root@eltex-practice2-pg1-v22:~/eltex-spring-practice_clone# git diff main origin/main
+diff --git a/README.md b/README.md
+index 0a6fbd5..56cb786 100644
+--- a/README.md
++++ b/README.md
+@@ -1 +1,2 @@
+ # Данная ветка служит местом сохранения работ по практикам
++тест изменения основного каталога
+root@eltex-practice2-pg1-v22:~/eltex-spring-practice_clone# git merge origin/main
+Updating 766575b..4975600
+Fast-forward
+ README.md | 1 +
+ 1 file changed, 1 insertion(+)
+root@eltex-practice2-pg1-v22:~/eltex-spring-practice_clone# git status
+On branch main
+Your branch is up to date with 'origin/main'.
+
+nothing to commit, working tree clean
+
+root@eltex-practice2-pg1-v22:~# mv /root/filesFromServer/practice2_eltex-pg1-v22_part1.log /root/eltex-spring-practice/module1/practice_2/task1
+root@eltex-practice2-pg1-v22:~# mv /root/filesFromServer/practice2_eltex-pg1-v22_part2.log /root/eltex-spring-practice/module1/practice_2/task2
+root@eltex-practice2-pg1-v22:~# mv /root/filesFromServer/practice2_eltex-pg1-v22_part3.log /root/eltex-spring-practice/module1/practice_2/task3
+root@eltex-practice2-pg1-v22:~/eltex-spring-practice# git add .
+root@eltex-practice2-pg1-v22:~/eltex-spring-practice# git status
+
+root@eltex-practice2-pg1-v22:~/eltex-spring-practice# git commit -m "Добавил отчеты по 1 практике"

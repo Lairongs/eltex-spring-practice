@@ -1,0 +1,209 @@
+root@eltex-practice2-pg1-v22:~# startTime=$(uptime -s)
+root@eltex-practice2-pg1-v22:~# echo "$startTime"
+2026-03-12 08:27:12
+root@eltex-practice2-pg1-v22:~# endTime=$(date -u -d "$(uptime -s) UTC + 20 seconds" '+ %F %T')
+root@eltex-practice2-pg1-v22:~# echo "$endTime"
+ 2026-03-12 08:27:32
+root@eltex-practice2-pg1-v22:~# journalctl -b --since="$startTime" --until="$endTime"
+-- No entries --
+root@eltex-practice2-pg1-v22:~# journalctl -b -o short-precise --utc | head -n 20
+Mar 12 08:27:32.748318 localhost kernel: Linux version 6.8.0-55-generic (buildd@lcy02-amd64-095) (x86_64-linux-gnu-gcc-13 (Ubuntu 13.3.0-6ubuntu2~24.04) 13.3.0, GNU ld (GNU Binutils for Ubuntu) 2.42) #57-Ubuntu SMP PREEMPT_DYNAMIC Wed Feb 12 23:42:21 UTC 2025 (Ubuntu 6.8.0-55.57-generic 6.8.12)
+Mar 12 08:27:32.748345 localhost kernel: Command line: BOOT_IMAGE=/vmlinuz-6.8.0-55-generic root=/dev/mapper/ubuntu--vg-ubuntu--lv ro
+Mar 12 08:27:32.748355 localhost kernel: KERNEL supported cpus:
+Mar 12 08:27:32.748362 localhost kernel:   Intel GenuineIntel
+Mar 12 08:27:32.748368 localhost kernel:   AMD AuthenticAMD
+Mar 12 08:27:32.748377 localhost kernel:   Hygon HygonGenuine
+Mar 12 08:27:32.748385 localhost kernel:   Centaur CentaurHauls
+Mar 12 08:27:32.748391 localhost kernel:   zhaoxin   Shanghai
+Mar 12 08:27:32.748398 localhost kernel: BIOS-provided physical RAM map:
+Mar 12 08:27:32.748405 localhost kernel: BIOS-e820: [mem 0x0000000000000000-0x000000000009fbff] usable
+Mar 12 08:27:32.748412 localhost kernel: BIOS-e820: [mem 0x000000000009fc00-0x000000000009ffff] reserved
+Mar 12 08:27:32.748418 localhost kernel: BIOS-e820: [mem 0x00000000000f0000-0x00000000000fffff] reserved
+Mar 12 08:27:32.748425 localhost kernel: BIOS-e820: [mem 0x0000000000100000-0x00000000bffd9fff] usable
+Mar 12 08:27:32.748432 localhost kernel: BIOS-e820: [mem 0x00000000bffda000-0x00000000bfffffff] reserved
+Mar 12 08:27:32.748440 localhost kernel: BIOS-e820: [mem 0x00000000feffc000-0x00000000feffffff] reserved
+Mar 12 08:27:32.748448 localhost kernel: BIOS-e820: [mem 0x00000000fffc0000-0x00000000ffffffff] reserved
+Mar 12 08:27:32.753625 localhost kernel: BIOS-e820: [mem 0x0000000100000000-0x000000013fffffff] usable
+Mar 12 08:27:32.753655 localhost kernel: BIOS-e820: [mem 0x000000fd00000000-0x000000ffffffffff] reserved
+Mar 12 08:27:32.753665 localhost kernel: NX (Execute Disable) protection: active
+Mar 12 08:27:32.753672 localhost kernel: APIC: Static calls initialized
+root@eltex-practice2-pg1-v22:~# find / -name "auth.log" 2>/dev/null
+/var/log/auth.log
+root@eltex-practice2-pg1-v22:~# cat /var/log/auth.log | tail
+2026-03-16T15:05:01.518272+00:00 eltex-practice2-pg1-v22 CRON[61555]: pam_unix(cron:session): session opened for user root(uid=0) by root(uid=0)
+2026-03-16T15:05:01.674936+00:00 eltex-practice2-pg1-v22 CRON[61555]: pam_unix(cron:session): session closed for user root
+2026-03-16T15:15:01.522961+00:00 eltex-practice2-pg1-v22 CRON[61588]: pam_unix(cron:session): session opened for user root(uid=0) by root(uid=0)
+2026-03-16T15:15:01.524264+00:00 eltex-practice2-pg1-v22 CRON[61588]: pam_unix(cron:session): session closed for user root
+2026-03-16T15:17:01.526693+00:00 eltex-practice2-pg1-v22 CRON[61593]: pam_unix(cron:session): session opened for user root(uid=0) by root(uid=0)
+2026-03-16T15:17:02.104635+00:00 eltex-practice2-pg1-v22 CRON[61593]: pam_unix(cron:session): session closed for user root
+2026-03-16T15:25:01.531158+00:00 eltex-practice2-pg1-v22 CRON[61611]: pam_unix(cron:session): session opened for user root(uid=0) by root(uid=0)
+2026-03-16T15:25:01.539047+00:00 eltex-practice2-pg1-v22 CRON[61611]: pam_unix(cron:session): session closed for user root
+2026-03-16T15:35:01.535783+00:00 eltex-practice2-pg1-v22 CRON[61621]: pam_unix(cron:session): session opened for user root(uid=0) by root(uid=0)
+2026-03-16T15:35:01.536820+00:00 eltex-practice2-pg1-v22 CRON[61621]: pam_unix(cron:session): session closed for user root
+
+root@eltex-practice2-pg1-v22:~# awk 'NR==1{for(i=1;i<=NF;i++) print i, $i}' /var/log/auth.log
+1 2026-03-15T00:05:01.970819+00:00
+2 eltex-practice2-pg1-v22
+3 CRON[49380]:
+4 pam_unix(cron:session):
+5 session
+6 opened
+7 for
+8 user
+9 root(uid=0)
+10 by
+11 root(uid=0)
+
+root@eltex-practice2-pg1-v22:~# awk '{print $3, substr($0, index($0,$4))}' /var/log/auth.log | sed 's#\[[0-9]*\]##' | sort > /root/my_test/info_awk_test.txt
+root@eltex-practice2-pg1-v22:~# cat /root/my_test/info_awk_test.txt | tail -n 30
+su: (to user1) root on pts/0
+su: (to user1) root on pts/0
+su: (to user1) root on pts/0
+su: (to user1) root on pts/0
+su: (to user1) root on pts/0
+su: (to user1) root on pts/0
+su: (to user2) root on pts/0
+su: (to user2) root on pts/0
+su: (to user2) root on pts/0
+su: (to user2) root on pts/0
+su: (to user2) root on pts/0
+su: (to user3) root on pts/0
+su: (to user3) root on pts/0
+su: (to user3) root on pts/0
+su: (to user3) root on pts/0
+su: (to user3) root on pts/0
+su: (to user3) root on pts/0
+systemd-logind: New session 503 of user root.
+systemd-logind: New session 699 of user root.
+systemd-logind: New session 720 of user root.
+systemd-logind: New session 736 of user root.
+systemd-logind: New session 831 of user root.
+systemd-logind: Removed session 503.
+systemd-logind: Removed session 699.
+systemd-logind: Removed session 720.
+systemd-logind: Removed session 736.
+systemd-logind: Session 503 logged out. Waiting for processes to exit.
+systemd-logind: Session 699 logged out. Waiting for processes to exit.
+systemd-logind: Session 720 logged out. Waiting for processes to exit.
+systemd-logind: Session 736 logged out. Waiting for processes to exit.
+
+root@eltex-practice2-pg1-v22:~# awk '{count[$1]++} END {for (src in count) print count[src], src}' /root/my_test/info_awk_test.txt > /root/my_test/info_awk_count.txt
+root@eltex-practice2-pg1-v22:~# cat /root/my_test/info_awk_count.txt
+6 sudo:
+740 CRON:
+13 systemd-logind:
+1 nologin:
+22 sshd:
+54 su:
+3 chage:
+
+root@eltex-practice2-pg1-v22:~# sort -n -r /root/my_test/info_awk_count.txt
+740 CRON:
+54 su:
+22 sshd:
+13 systemd-logind:
+6 sudo:
+3 chage:
+1 nologin:
+
+root@eltex-practice2-pg1-v22:~# vi testAwkScript.awk
+root@eltex-practice2-pg1-v22:~# cat testAwkScript.awk
+BEGIN {
+        FS = ":"
+}
+
+NR == FNR {
+        infoGID[$3]=$1
+        n=split($4,splitMassive,",")
+        for(i=1;i<=n;i++){
+                userGroups[splitMassive[i]]=userGroups[splitMassive[i]] "," $1
+        }
+        next
+}
+$7=="/usr/sbin/nologin"{
+        if($1 in userGroups){
+                listUserGroups=infoGID[$4] userGroups[$1]
+        }
+        else{
+                listUserGroups=infoGID[$4]
+        }
+        print $3,$1,listUserGroups
+}
+
+root@eltex-practice2-pg1-v22:~# awk -f testAwkScript.awk /etc/group /etc/passwd | sort -r -n > /root/my_test/userMainInfoScript.txt
+
+root@eltex-practice2-pg1-v22:~# cat /root/my_test/userMainInfoScript.txt
+65534 nobody nogroup
+1003 user3 user3,users,Students
+998 systemd-network systemd-network
+997 systemd-timesync systemd-timesync
+992 systemd-resolve systemd-resolve
+991 polkitd polkitd
+989 fwupd-refresh fwupd-refresh
+109 sshd nogroup
+108 usbmux plugdev
+107 landscape landscape
+105 tcpdump tcpdump
+104 uuidd uuidd
+103 syslog syslog,adm
+101 messagebus messagebus
+42 _apt nogroup
+39 irc irc
+38 list list
+34 backup backup
+33 www-data www-data
+13 proxy proxy
+10 uucp uucp
+9 news news
+8 mail mail
+7 lp lp
+6 man man
+5 games games
+3 sys sys
+2 bin bin
+1 daemon daemon
+
+
+dmesg | grep 'kernel' > /root/my_test/dmesg_result_kernel.txt
+root@eltex-practice2-pg1-v22:~# cat /root/my_test/dmesg_result_kernel.txt
+[    0.097613] Booting paravirtualized kernel on KVM
+[    0.099643] Unknown kernel command line parameters "BOOT_IMAGE=/vmlinuz-6.8.0-55-generic", will be passed to user space.
+[    0.285524] Memory: 3933500K/4193760K available (22528K kernel code, 4443K rwdata, 14344K rodata, 4988K init, 4716K bss, 260000K reserved, 0K cma-reserved)
+[    0.993687] Loaded X.509 cert 'Build time autogenerated kernel key: e0bedf6fa049a1e09bd65ebab3904f14cdd5bc68'
+[    1.168768] Loaded X.509 cert 'Build time autogenerated kernel key: e0bedf6fa049a1e09bd65ebab3904f14cdd5bc68'
+[    1.231094] Freeing unused kernel image (initmem) memory: 4988K
+[    1.234409] Write protecting the kernel read-only data: 38912k
+[    1.246766] Freeing unused kernel image (rodata/data gap) memory: 2040K
+[   20.235737] systemd[1]: Listening on systemd-udevd-kernel.socket - udev Kernel Socket.
+[   20.322532] systemd[1]: Mounting sys-kernel-debug.mount - Kernel Debug File System...
+[   20.330556] systemd[1]: Mounting sys-kernel-tracing.mount - Kernel Trace File System...
+[   20.980456] systemd[1]: Mounted sys-kernel-debug.mount - Kernel Debug File System.
+[   20.981681] systemd[1]: Mounted sys-kernel-tracing.mount - Kernel Trace File System.
+[   21.142384] systemd[1]: Mounting sys-kernel-config.mount - Kernel Configuration File System...
+
+root@eltex-practice2-pg1-v22:~# wc -l /var/log/kern.log
+33 /var/log/kern.log
+
+root@eltex-practice2-pg1-v22:~# vi practice2_part2_lastAwkScript.awk
+root@eltex-practice2-pg1-v22:~# cat  practice2_part2_lastAwkScript.awk
+/^Start-Date:/ {start=substr($0, index($0, ":")+2)}
+/^Commandline:/ {cmd=substr($0, index($0, ":")+2)}
+/^End-Date:/ {
+        end=substr($0, index($0, ":")+2)
+        print "Commandline: " cmd " ; Start-Date: " start " ; End-Date: " end
+}
+root@eltex-practice2-pg1-v22:~# awk -f practice2_part2_lastAwkScript.awk /var/log/apt/history.log > /root/my_test/apt_history_formatted.txt
+root@eltex-practice2-pg1-v22:~# cat /root/my_test/apt_history_formatted.txt | head -n 10
+Commandline: apt-get install --reinstall apt ; Start-Date: 2025-02-16  20:51:22 ; End-Date: 2025-02-16  20:51:24
+Commandline: apt-get install --reinstall base-files ; Start-Date: 2025-02-16  20:51:26 ; End-Date: 2025-02-16  20:51:28
+Commandline: apt-get install --reinstall base-passwd ; Start-Date: 2025-02-16  20:51:31 ; End-Date: 2025-02-16  20:51:32
+Commandline: apt-get install --reinstall bash ; Start-Date: 2025-02-16  20:51:35 ; End-Date: 2025-02-16  20:51:37
+Commandline: apt-get install --reinstall bsdutils ; Start-Date: 2025-02-16  20:51:39 ; End-Date: 2025-02-16  20:51:41
+Commandline: apt-get install --reinstall coreutils ; Start-Date: 2025-02-16  20:51:44 ; End-Date: 2025-02-16  20:51:45
+Commandline: apt-get install --reinstall dash ; Start-Date: 2025-02-16  20:51:48 ; End-Date: 2025-02-16  20:51:49
+Commandline: apt-get install --reinstall debconf ; Start-Date: 2025-02-16  20:51:52 ; End-Date: 2025-02-16  20:51:53
+Commandline: apt-get install --reinstall debianutils ; Start-Date: 2025-02-16  20:51:56 ; End-Date: 2025-02-16  20:51:58
+Commandline: apt-get install --reinstall diffutils ; Start-Date: 2025-02-16  20:52:00 ; End-Date: 2025-02-16  20:52:02
+
+
+ 
