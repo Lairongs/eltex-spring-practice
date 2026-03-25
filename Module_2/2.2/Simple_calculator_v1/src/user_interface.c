@@ -14,7 +14,7 @@ int read_value(float *value)
         return 0;
     }
 
-    temp = strtod(buffer, &endptr);
+    temp = strtof(buffer, &endptr);
 
     if (buffer == endptr) {
         return 0;
