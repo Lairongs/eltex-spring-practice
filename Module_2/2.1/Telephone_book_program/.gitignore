@@ -1,7 +1,0 @@
-*.o
-*.a
-*.lib
-*.exe
-*.out
-build/
-bin/
