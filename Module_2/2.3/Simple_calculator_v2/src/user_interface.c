@@ -1,0 +1,128 @@
+#include <stdio.h>
+#include <ctype.h>
+#include <stdlib.h>
+#include "simple_calculator.h"
+
+
+int read_value(float *value)
+{
+    char buffer[100];
+    char *endptr;
+    float temp;
+    
+    if (fgets(buffer, sizeof(buffer), stdin) == NULL) {
+        return 0;
+    }
+
+    temp = strtod(buffer, &endptr);
+
+    if (buffer == endptr) {
+        return 0;
+    }
+
+    while (isspace((unsigned char)*endptr)) {
+        endptr++;
+    }
+
+    if (*endptr != '\0') {
+        return 0;
+    }
+
+    *value = temp;
+
+    return 1;
+}
+
+
+void print_main_menu(void)
+{
+    printf("============================ Меню калькулятора ============================\n\n");
+
+    printf(">> Выберите из списка операцию которую хотите выполнить\n\n");
+
+    printf("1. Сложение\n");
+    printf("2. Вычитание\n");
+    printf("3. Умножение\n");
+    printf("4. Деление\n");
+    printf("0. Выход\n\n");
+    printf("Выберите необходимый пункт из списка (Только число!): ");
+}
+
+
+int input_values(SimpleCalculator *simpleCalculator, float (*operation)(const SimpleCalculator *))
+{
+    if(simpleCalculator == NULL || operation == NULL ) return 0;
+
+    float temp_first_value;
+    float temp_second_value;
+
+    printf("\nВведите первое число: ");
+    if(!read_value(&temp_first_value)) 
+    {
+        printf("Ошибка ввода. Вы ввели некорректное число! \n");
+        return 0;
+    }
+
+    printf("Введите второе число: ");
+    if(!read_value(&temp_second_value)) 
+    {
+        printf("Ошибка ввода. Вы ввели некорректное число! \n");
+        return 0;
+    }    
+
+    if(operation == div_value && temp_second_value == 0)
+    {
+        printf("\nДелить на ноль запрещено !!! \n");
+        return 0;
+    }
+
+    // Сохраняем значение в структуру
+    simpleCalculator->first_value = temp_first_value;
+    simpleCalculator->second_value = temp_second_value;
+    return 1;
+}
+
+
+void main_block(void)
+{ 
+    SimpleCalculator value;
+    value.first_value = 0;
+    value.second_value = 0;
+    
+    int select_index;
+
+    float (*operation)(const SimpleCalculator *temp_value);
+    while(1)
+    {
+        print_main_menu();
+        if (scanf("%d", &select_index) != 1)
+        {
+            printf("Ошибка ввода. Нужно ввести число.\n");
+            while (getchar() != '\n');
+            continue;
+        }
+        while (getchar() != '\n');
+
+        if(select_index == 0) return;
+
+
+        operation = select(select_index);
+
+
+        if (operation == NULL)
+        {
+            printf("Неверный пункт меню.\n");
+            continue;
+        }        
+        
+        if(!input_values(&value, operation))
+        {
+            printf("Ошибка в операции!!! Повторите операцию еще раз! \n\n");
+            continue;
+        }
+        printf("\n------------------------------------------------\n\n");
+        printf("Результат операции: %g\n\n", operation(&value));
+        printf("------------------------------------------------\n\n\n");
+                
+    }
+}
